@@ -29,3 +29,7 @@ The weather station (as well as future compatibility with future stations) will 
 ## Framework
 
 This project will utilize either Vue or React.
+
+## Fun Additions
+
+I will add my weather station to the list of amateur stations contributing to Open Weather.  
