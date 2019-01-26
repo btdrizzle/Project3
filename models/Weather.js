@@ -8,11 +8,11 @@ var Schema = mongoose.Schema;
 var WeatherSchema = new Schema({
   // `title` is required and of type String
   station: {
-    type: String,
+    type: Schema.Types.ObjectId
   },
   // `link` is required and of type String
   name: {
-      type:String
+    type:String
   },
   date: {
     type: Date,
