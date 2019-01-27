@@ -1,0 +1,9 @@
+h1 {
+    font-family: 'Audiowide', cursive;
+}
+
+#body {
+    font-family: 'Open Sans', sans-serif;
+    background-image: url("../otis-redding.png");
+    background-color: #e9f5f9;
+}
