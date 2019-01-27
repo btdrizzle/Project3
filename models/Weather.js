@@ -11,24 +11,34 @@ var WeatherSchema = new Schema({
     type: Schema.Types.ObjectId
   },
   // `link` is required and of type String
-  name: {
-    type:String
-  },
   date: {
     type: Date,
     default: Date.now()
     },
-  synopsis: {
-    type: String,
-
+  wind_speed: {
+    type: Number
     },
-  thumbnail: {
-    type: String,
-
+  wind_gust: {
+    type: Number
     },
-  link: {
-    type: String,
-  }
+  wind_average: {
+    type: Number
+    },
+  rainfall_amt: {
+    type: Number
+    },
+  humidity: {
+    type: Number
+    },
+  pressure: {
+    type: Number
+    },
+  ambient_temp: {
+    type: Number
+    },
+  ground_temp: {
+    type: Number
+    },
 });
 
 var Weather = mongoose.model("Weather", WeatherSchema);
