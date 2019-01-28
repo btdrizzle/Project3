@@ -1,9 +1,29 @@
 h1 {
     font-family: 'Audiowide', cursive;
 }
+.header {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #4e4e4e;
+    color: #e9f5f9;
+}
+.active {
+    background-color: #e9f5f9 !important;
+    border-bottom-color: transparent !important;
+}
+.nav-link {
+    color: #e9f5f9;
+}
+.nav-link:hover {
+    color: #e9f5f9;
+}
+.nav-link:focus {
+    color: #4e4e4e;
+    background-color: #e9f5f9;
+}
 
 #body {
     font-family: 'Open Sans', sans-serif;
     background-image: url("../otis-redding.png");
     background-color: #e9f5f9;
+    min-height: calc(100vh - 100px);
 }
