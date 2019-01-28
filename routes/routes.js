@@ -1,5 +1,5 @@
 const router = require("express").Router();
-// const axios = require("axios");
+const axios = require("axios");
 const db = require("../models");
 require("dotenv").config();
 
@@ -34,16 +34,22 @@ router.get("/weather/:station", (req, res) => {
         .then((data) => {
             db.Weather.find({ station: data._id })
                 .then((weatherData) => {
-                    res.status(200).json(weatherData);
+                    res.json(weatherData);
                 }).catch(err => console.log(err));
         }).catch(err => res.json(err));
 });
 
-/* router.get("/weather/weatherbit/", (req,res) => {
-    const baseURL = "http://http://api.weatherbit.io/v2.0/history/daily?";
+router.get("/weatherbit/", (req, res) => {
+    const baseURL = "http://api.weatherbit.io/v2.0/history/daily?";
     const KEY = process.env.API_Key;
-    const body = req.body;
-
-}) */
+    const { query } = req;
+    axios.get(`${baseURL}key=${KEY}&start_date=${query.start_date}&end_date=${query.end_date}&city=${query.city}`)
+        .then((data) => {
+            res.json(data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
 
 module.exports = router;
