@@ -35,7 +35,7 @@ class Charts extends Component {
                 const shortData = dataCopy.splice(dataCopy.length-10, dataCopy.length);
                 if(shortData.length) {
                     const superData = shortData.map(data => (
-                        {x: (moment(data.date).format("hh:mm:ss a")), temp: (data.ambient_temp * 1.8 + 32), humidity: data.humidity}
+                        {x: (moment(data.date).format("hh:mm:ss a")), temp: (data.ambient_temp * 1.8 + 32), humidity: data.humidity, ground_temp: (data.ground_temp* 1.8 + 32)}
                     ))
                     this.setState({toBeCharted: superData});
                     console.log(superData);
@@ -54,7 +54,7 @@ class Charts extends Component {
     render() {
         let chart;
         if(this.state.toBeCharted.length) {
-            chart = <div className="chart"><TempChartReChart data={this.state.toBeCharted}/></div>
+            chart = <div className="chart mt-4"><TempChartReChart data={this.state.toBeCharted}/></div>
         }else {
             chart = <div></div>
         }
