@@ -28,6 +28,13 @@ router.post("/weather/:station", (req, res) => {
         }).catch(err => res.json(err));
 });
 
+router.get("/stations", (req, res) => {
+    db.Station.find({})
+        .then((data) => {
+            res.json(data);
+        });
+});
+
 router.get("/weather/:station", (req, res) => {
     const { station } = req.params;
     db.Station.findOne({ _id: station })

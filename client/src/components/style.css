@@ -27,3 +27,17 @@ h1 {
     background-color: #e9f5f9;
     min-height: calc(100vh - 100px);
 }
+.choose {
+    text-align: center;
+    margin: auto;
+}
+.dropDown {
+    width: 50%;
+    text-align: center;
+}
+.chart {
+    margin: auto;
+}
+.recharts-wrapper {
+    margin: auto;
+}
