@@ -21,7 +21,11 @@ class Charts extends Component {
         await this.setState({
           [name]: value
         });
-        if(this.state.select !== "Choose a Weather Station" || this.state.select !== "") {
+        if(this.state.select === "Choose a Weather Station") {
+            return;
+        }else if(this.state.select === "") {
+            return;
+        }else{
             this.stationWeather()
         }
 
