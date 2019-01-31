@@ -3,6 +3,7 @@ import axios from "axios";
 export default {
     stationWeather: function(query) {
         const URL = "/api/weather/";
+        console.log(query);
         return axios.get(`${URL}${query}`);
         
     },

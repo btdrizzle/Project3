@@ -7,6 +7,7 @@ import BarometricPressureChart from "./BarometricPressureChart";
 import WindGust from "./WindGust";
 import ChoiceBlock from "./ChoiceBlock";
 //import WindData from "./WindData";
+import stateList from "./States";
 import ComparisonChart from "./ComparisonChart";
 import "./style.css";
 const moment = require("moment");
@@ -23,6 +24,7 @@ class Charts extends Component {
             state: "",
             city: "",
             cityData: {},
+            stationTemps: {},
             today: moment(new Date()).format("YYYY-MM-DD"),
             tomorrow: moment(new Date()).add(1,'days').format("YYYY-MM-DD")
         }
@@ -53,7 +55,11 @@ class Charts extends Component {
             if(this.state.weatherData.length) {
                 const dataCopy = this.state.weatherData;
                 const secondCopy = this.state.weatherData;
-                
+                const latestDay = moment(secondCopy[secondCopy.length-1].date).format("MM-DD");
+                const filterByLatestDay = secondCopy.filter(data => moment(data.date).format("MM-DD") === latestDay);
+                const highTemp = Math.max.apply(Math, filterByLatestDay.map(function(o) {return o.ambient_temp}));
+                const lowTemp = Math.min.apply(Math, filterByLatestDay.map(function(o) {return o.ambient_temp}));
+                this.setState({stationTemps: {highTemp: (highTemp * 1.8 + 32), lowTemp: (lowTemp * 1.8 + 32)}})
                 const shortData = dataCopy.splice(dataCopy.length-10, dataCopy.length);
                 if(shortData.length) {
                     const superData = shortData.map(data => (
@@ -113,18 +119,25 @@ class Charts extends Component {
                     entry = (
                         <div className="entry mx-auto">
                         <form className="form-inline">
-                            <input type="text" value={this.state.city} onChange={this.handleChange} name="city" className="mb-2 mr-4" placeholder="Search for City" />
-                            <input type="text" value={this.state.state} onChange={this.handleChange} name="state" className="mb-2 mr-4" placeholder="State" />
+                            <input type="text" value={this.state.city} onChange={this.handleChange} name="city" className="city mb-2 mr-4 form-control" placeholder="Search for City" />
+                            <select value={this.state.state} onChange={this.handleChange} name="state" className="state mb-2 mr-4 form-control">
+                            <option className="option">Choose a State</option>
+                            {stateList.map(state => (
+                                <option className="option" value={state}>{state}</option>
+                            ))}
+                        </select>
                             <button type="submit" className="btn btn-dark mb-2" onClick={this.searchAPI}>Search</button>
                         </form>
                         </div>
                     )
-                    if(this.state.cityData.length) {
+
                         chart = (<div className="chart mt-4">
                         <ComparisonChart 
-                        data={this.state.toBeCharted}/>
+                        location={`${this.state.city.toUpperCase()},${this.state.state.toUpperCase()}`}
+                        data={[{name: "JV Station", highTemp: this.state.stationTemps.highTemp, lowTemp: this.state.stationTemps.lowTemp},
+                                {name: `${this.state.city},${this.state.state}`, highTemp: (this.state.cityData.highTemp * 1.8 + 32), lowTemp: (this.state.cityData.lowTemp * 1.8 + 32)}]}/>
                         </div>)
-                    }
+                    
                     break;
                 default:
                 entry = <div></div>    

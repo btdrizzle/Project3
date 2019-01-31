@@ -45,3 +45,18 @@ h1 {
     width: 50%;
     text-align: center;
 }
+.form-inline {
+    width: 100%;
+}
+.form-inline > .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.city {
+    width: 50% !important;
+}
+.state {
+    width: 30% !important;
+}
+
