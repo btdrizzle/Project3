@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import API from "./API";
 import TempChartReChart from "./TempChartReChart";
+import RainChart from "./RainChart";
+import WindChart from "./WindChart";
+import BarometricPressureChart from "./BarometricPressureChart";
+import ChoiceBlock from "./ChoiceBlock";
 const moment = require("moment");
 
 class Charts extends Component {
@@ -10,7 +14,8 @@ class Charts extends Component {
             stations: [],
             select: "",
             weatherData: [],
-            toBeCharted: []
+            toBeCharted: [],
+            displayChart: ""
         }
     }
     handleChange = async event => {
@@ -25,7 +30,9 @@ class Charts extends Component {
             return;
         }else if(this.state.select === "") {
             return;
-        }else{
+        }else if(this.state.toBeCharted.length) {
+            return;
+        }else {
             this.stationWeather()
         }
 
@@ -39,7 +46,9 @@ class Charts extends Component {
                 const shortData = dataCopy.splice(dataCopy.length-10, dataCopy.length);
                 if(shortData.length) {
                     const superData = shortData.map(data => (
-                        {x: (moment(data.date).format("hh:mm:ss a")), temp: (data.ambient_temp * 1.8 + 32), humidity: data.humidity, ground_temp: (data.ground_temp* 1.8 + 32)}
+                        {x: (moment(data.date).format("hh:mm:ss a")), temp: (data.ambient_temp * 1.8 + 32), humidity: data.humidity, 
+                        ground_temp: (data.ground_temp* 1.8 + 32), pressure: data.pressure, wind_speed: data.wind_speed, wind_gust: data.wind_gust,
+                        wind_average: data.wind_average, rainfall_amt: data.rainfall_amt}
                     ))
                     this.setState({toBeCharted: superData});
                     console.log(superData);
@@ -57,12 +66,33 @@ class Charts extends Component {
     }
     render() {
         let chart;
+        let choice;
         if(this.state.toBeCharted.length) {
-            chart = <div className="chart mt-4"><TempChartReChart data={this.state.toBeCharted}/></div>
-        }else {
-            chart = <div></div>
+            choice =  (<div>
+                <ChoiceBlock 
+                value={this.state.displayChart} 
+                handleChange={this.handleChange}  />
+                </div>)
+            switch(this.state.displayChart) {
+                case "Temperature and Humidity":
+                    chart = <div className="chart mt-4"><TempChartReChart data={this.state.toBeCharted}/></div>
+                    break;
+                case "Wind Speed and Direction":
+                    chart = <div className="chart mt-4"><WindChart data={this.state.toBeCharted}/></div>
+                    break;
+                case "Rainfall":
+                    chart = <div className="chart mt-4"><RainChart data={this.state.toBeCharted}/></div>
+                    break;
+                case "Barometric Pressure":
+                    chart = <div className="chart mt-4"><BarometricPressureChart data={this.state.toBeCharted}/></div>
+                    break;
+                default:
+                    chart = <div></div>
+            }
+        }else{
+            choice = <div></div>
         }
-        
+
         return(
             <div className="pt-4">
                 <div className="choose">
@@ -75,6 +105,7 @@ class Charts extends Component {
                         </select>
                     </label>
                 </div>
+                {choice}
                 {chart}
             </div>
         )
