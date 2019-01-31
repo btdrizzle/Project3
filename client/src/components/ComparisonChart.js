@@ -12,8 +12,8 @@ function ComparisonChart(props) {
             <YAxis label={{ value: "Temp F", angle: -90, position: 'insideLeft'}}/>
             <Tooltip />
             <Legend verticalAlign="bottom" height={36}/>
-            <Bar dataKey="highTemp" fill="#ce2029" />
-            <Bar dataKey="lowTemp" fill="#fcc200" />
+            <Bar dataKey="highTemp" fill="#da9100" />
+            <Bar dataKey="lowTemp" fill="#4b0082" />
             </BarChart>
         </div>
     )
