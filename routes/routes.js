@@ -50,7 +50,7 @@ router.get("/weatherbit/", (req, res) => {
     const baseURL = "http://api.weatherbit.io/v2.0/history/daily?";
     const { query } = req;
     console.log({ query });
-    axios.get(`${baseURL}key=${process.env.API_KEY}&start_date=${query.today}&end_date=${query.tomorrow}&city=${query.city},${query.state}`)
+    axios.get(`${baseURL}start_date=${query.today}&end_date=${query.tomorrow}&city=${query.city},${query.state}&key=${process.env.API_KEY}`)
         .then((data) => {
             res.json(data.data);
         })
