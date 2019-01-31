@@ -10,6 +10,8 @@ function ChoiceBlock(props) {
                     <option className="option" value="Wind Speed and Direction">Wind Speed and Direction</option>
                     <option className="option" value="Barometric Pressure">Barometric Pressure</option>
                     <option className="option" value="Rainfall">Rainfall</option>
+                    <option className="option" value="Wind Gust">Wind Gust</option>
+
             </select>
         </label>
     </div>

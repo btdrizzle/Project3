@@ -4,6 +4,7 @@ import TempChartReChart from "./TempChartReChart";
 import RainChart from "./RainChart";
 import WindChart from "./WindChart";
 import BarometricPressureChart from "./BarometricPressureChart";
+import WindGust from "./WindGust";
 import ChoiceBlock from "./ChoiceBlock";
 const moment = require("moment");
 
@@ -85,6 +86,9 @@ class Charts extends Component {
                     break;
                 case "Barometric Pressure":
                     chart = <div className="chart mt-4"><BarometricPressureChart data={this.state.toBeCharted}/></div>
+                    break;
+                case "Wind Gust":
+                    chart = <div className="chart mt-4"><WindGust data={this.state.toBeCharted}/></div>
                     break;
                 default:
                     chart = <div></div>
