@@ -1,22 +1,33 @@
 import React from "react";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend } from "recharts";
 import "./style.css";
 
 function WindChart(props) {
+    const data = [
+        {wind_direction: "N", A: 5,B: 2,C: 1, D: 1},
+        {wind_direction: "NE", A: 50,B: 10,C: 5, D: 1},
+        {wind_direction: "E", A: 10,B: 40,C: 5, D: 1},
+        {wind_direction: "SE", A: 5,B: 5,C: 5, D: 10},
+        {wind_direction: "S", A: 5,B: 5,C: 5, D: 6},
+        {wind_direction: "SW", A: 5,B:1 ,C: 50, D: 6},
+        {wind_direction: "W", A: 5,B: 10,C: 2, D: 50},
+        {wind_direction: "NW", A: 5,B: 1,C: 5, D: 50},
+    ]
+    
     return(
-            <div>
-            <h3 className="text-center">Last 10 Temp and Humidity Readings at Weather Station</h3>
-            <LineChart width={900} height={400} data={props.data} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
-                <Line type="monotone" dataKey="humidity" stroke="#008000"/>
-                <Line type="monotone" dataKey="ground_temp" stroke="#ff69b4"/>
-                <Line type="monotone" dataKey="temp" stroke="#ffa500" activeDot={{r:8}}/>
-                <Legend verticalAlign="bottom" height={36}/>
-                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                <XAxis dataKey="x"/>
-                <YAxis label={{ value: 'Degrees F, % Humidity', angle: -90, position: 'insideLeft'}}/>
-                <Tooltip />
-            </LineChart>
-            </div>
+        <div>
+            <h3 className="text-center">Wind Speed and Direction Radar Chart for latest 10 readings</h3>
+            <RadarChart cx={300} cy={250} outerRadius={200} width={600} height={500} data={data}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="wind_direction" />
+                <PolarRadiusAxis angle={30} />
+                <Radar name="0-5 km/h" dataKey="A" stroke="#008000" fill="#008000" fillOpacity={0.6}/>
+                <Radar name="6-10 km/h " dataKey="B" stroke="#800080" fill="#800080" fillOpacity={0.6}/>
+                <Radar name="11-15 km/h" dataKey="C" stroke="#ff69b4" fill="#ff69b4" fillOpacity={0.6}/>
+                <Radar name="> 15 km/h" dataKey="D" stroke="#8b0000" fill="#8b0000" fillOpacity={0.6}/>
+                <Legend />
+            </RadarChart>
+        </div>
     )
 }
 

@@ -11,6 +11,7 @@ function ChoiceBlock(props) {
                     <option className="option" value="Barometric Pressure">Barometric Pressure</option>
                     <option className="option" value="Rainfall">Rainfall</option>
                     <option className="option" value="Wind Gust">Wind Gust</option>
+                    <option className="option" value="Comparison Chart">Comparison Chart</option>
 
             </select>
         </label>

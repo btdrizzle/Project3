@@ -6,6 +6,9 @@ import WindChart from "./WindChart";
 import BarometricPressureChart from "./BarometricPressureChart";
 import WindGust from "./WindGust";
 import ChoiceBlock from "./ChoiceBlock";
+//import WindData from "./WindData";
+import ComparisonChart from "./ComparisonChart";
+import "./style.css";
 const moment = require("moment");
 
 class Charts extends Component {
@@ -16,7 +19,12 @@ class Charts extends Component {
             select: "",
             weatherData: [],
             toBeCharted: [],
-            displayChart: ""
+            displayChart: "",
+            state: "",
+            city: "",
+            cityData: {},
+            today: moment(new Date()).format("YYYY-MM-DD"),
+            tomorrow: moment(new Date()).add(1,'days').format("YYYY-MM-DD")
         }
     }
     handleChange = async event => {
@@ -44,6 +52,8 @@ class Charts extends Component {
             this.setState({weatherData: data.data})
             if(this.state.weatherData.length) {
                 const dataCopy = this.state.weatherData;
+                const secondCopy = this.state.weatherData;
+                
                 const shortData = dataCopy.splice(dataCopy.length-10, dataCopy.length);
                 if(shortData.length) {
                     const superData = shortData.map(data => (
@@ -58,6 +68,14 @@ class Charts extends Component {
             
         })
     }
+    searchAPI = event => {
+        event.preventDefault();
+        API.cityWeather({city: this.state.city, state: this.state.state, today:this.state.today, tomorrow: this.state.tomorrow})
+        .then(data => {
+            console.log(data);
+            this.setState({cityData: {highTemp: data.data.data[0].max_temp, lowTemp: data.data.data[0].min_temp}});
+        })
+    }
     
     componentDidMount() {
         API.stationQuery()
@@ -68,6 +86,7 @@ class Charts extends Component {
     render() {
         let chart;
         let choice;
+        let entry;
         if(this.state.toBeCharted.length) {
             choice =  (<div>
                 <ChoiceBlock 
@@ -90,8 +109,26 @@ class Charts extends Component {
                 case "Wind Gust":
                     chart = <div className="chart mt-4"><WindGust data={this.state.toBeCharted}/></div>
                     break;
+                case "Comparison Chart":
+                    entry = (
+                        <div className="entry mx-auto">
+                        <form className="form-inline">
+                            <input type="text" value={this.state.city} onChange={this.handleChange} name="city" className="mb-2 mr-4" placeholder="Search for City" />
+                            <input type="text" value={this.state.state} onChange={this.handleChange} name="state" className="mb-2 mr-4" placeholder="State" />
+                            <button type="submit" className="btn btn-dark mb-2" onClick={this.searchAPI}>Search</button>
+                        </form>
+                        </div>
+                    )
+                    if(this.state.cityData.length) {
+                        chart = (<div className="chart mt-4">
+                        <ComparisonChart 
+                        data={this.state.toBeCharted}/>
+                        </div>)
+                    }
+                    break;
                 default:
-                    chart = <div></div>
+                entry = <div></div>    
+                chart = <div></div>
             }
         }else{
             choice = <div></div>
@@ -110,6 +147,7 @@ class Charts extends Component {
                     </label>
                 </div>
                 {choice}
+                {entry}
                 {chart}
             </div>
         )

@@ -41,3 +41,7 @@ h1 {
 .recharts-wrapper {
     margin: auto;
 }
+.entry {
+    width: 50%;
+    text-align: center;
+}
