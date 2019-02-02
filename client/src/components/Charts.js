@@ -9,9 +9,11 @@ import ChoiceBlock from "./ChoiceBlock";
 import WindData from "./WindData";
 import stateList from "./States";
 import ComparisonChart from "./ComparisonChart";
+import io from "socket.io-client";
 import "./style.css";
 const moment = require("moment");
 
+let socket = io("http://localhost:3000");
 class Charts extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +35,7 @@ class Charts extends Component {
     handleChange = async event => {
         // Pull the name and value properties off of the event.target (the element which triggered the event)
         const { name, value } = event.target;
-    
+        socket.send("handlechange");
         // Set the state for the appropriate input field
         await this.setState({
           [name]: value
@@ -92,6 +94,15 @@ class Charts extends Component {
     }
     
     componentDidMount() {
+        socket.on("connect", function() {
+            socket.send("hi");
+            socket.on("test", function(data) {
+                console.log(data);
+            });
+            socket.on("get", function() {
+                this.stationWeather();
+            })
+        });
         API.stationQuery()
         .then(data => {
             this.setState({stations: data.data})

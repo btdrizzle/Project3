@@ -2,10 +2,13 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
+const app = require("express")();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 
 
 const PORT = process.env.PORT || 3001;
-const app = express();
+
 const routes = require("./routes/routes");
 
 // Define middleware here
@@ -29,6 +32,18 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, () => {
-    console.log(`🌎 ==> API server now on port ${PORT}!`);
+server.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});
+
+io.on("connection", (socket) => {
+    console.log("connection made");
+    socket.emit("test", "Hello there!");
+    socket.on("post", () => {
+        socket.broadcast.emit("get");
+        console.log("Post request made");
+    });
+    socket.on("message", (data) => {
+        console.log(data);
+    });
 });
