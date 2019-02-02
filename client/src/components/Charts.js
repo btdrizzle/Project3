@@ -6,7 +6,7 @@ import WindChart from "./WindChart";
 import BarometricPressureChart from "./BarometricPressureChart";
 import WindGust from "./WindGust";
 import ChoiceBlock from "./ChoiceBlock";
-//import WindData from "./WindData";
+import WindData from "./WindData";
 import stateList from "./States";
 import ComparisonChart from "./ComparisonChart";
 import "./style.css";
@@ -25,6 +25,7 @@ class Charts extends Component {
             city: "",
             cityData: {},
             stationTemps: {},
+            windData: [],
             today: moment(new Date()).format("YYYY-MM-DD"),
             tomorrow: moment(new Date()).add(1,'days').format("YYYY-MM-DD")
         }
@@ -57,6 +58,13 @@ class Charts extends Component {
                 const secondCopy = this.state.weatherData;
                 const latestDay = moment(secondCopy[secondCopy.length-1].date).format("MM-DD");
                 const filterByLatestDay = secondCopy.filter(data => moment(data.date).format("MM-DD") === latestDay);
+                const windData = filterByLatestDay.map(day => (
+                    {wind_average: day.wind_average, wind_speed: day.wind_speed}
+                ))
+                WindData.processWindData(windData)
+                .then(data => {
+                    this.setState({windData: data})
+                });
                 const highTemp = Math.max.apply(Math, filterByLatestDay.map(function(o) {return o.ambient_temp}));
                 const lowTemp = Math.min.apply(Math, filterByLatestDay.map(function(o) {return o.ambient_temp}));
                 this.setState({stationTemps: {highTemp: (highTemp * 1.8 + 32), lowTemp: (lowTemp * 1.8 + 32)}})
@@ -104,7 +112,7 @@ class Charts extends Component {
                     chart = <div className="chart mt-4"><TempChartReChart data={this.state.toBeCharted}/></div>
                     break;
                 case "Wind Speed and Direction":
-                    chart = <div className="chart mt-4"><WindChart data={this.state.toBeCharted}/></div>
+                    chart = <div className="chart mt-4"><WindChart data={this.state.windData}/></div>
                     break;
                 case "Rainfall":
                     chart = <div className="chart mt-4"><RainChart data={this.state.toBeCharted}/></div>
