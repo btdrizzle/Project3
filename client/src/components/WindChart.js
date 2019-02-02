@@ -1,5 +1,5 @@
 import React from "react";
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, Tooltip } from "recharts";
 import "./style.css";
 
 function WindChart(props) {
@@ -25,6 +25,7 @@ function WindChart(props) {
                 <Radar name="6-10 km/h " dataKey="B" stroke="#800080" fill="#800080" fillOpacity={0.6}/>
                 <Radar name="11-15 km/h" dataKey="C" stroke="#ff69b4" fill="#ff69b4" fillOpacity={0.6}/>
                 <Radar name="> 15 km/h" dataKey="D" stroke="#8b0000" fill="#8b0000" fillOpacity={0.6}/>
+                <Tooltip />
                 <Legend />
             </RadarChart>
         </div>
