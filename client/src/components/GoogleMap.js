@@ -22,7 +22,7 @@ class GoogleMapsContainer extends Component {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
-            showingInfoWindow: true
+            showingInfoWindow: true,
         });
     }
     
@@ -31,6 +31,7 @@ class GoogleMapsContainer extends Component {
         if(this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
+                activeMarker: null
             })
         }
     }
@@ -38,6 +39,7 @@ class GoogleMapsContainer extends Component {
         if(this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
+                activeMarker: null
             })
         }
     }
@@ -90,10 +92,13 @@ class GoogleMapsContainer extends Component {
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
                 >
+                    {this.state.activeMarker && 
                     <div>
                         <h4>{this.state.activeMarker.name}</h4>
-                        
+                        <p>Latitude: {(this.state.activeMarker.position && <span>{this.state.activeMarker.position.lat()}</span>)}</p>
+                        <p>Longitude: {(this.state.activeMarker.position && <span>{this.state.activeMarker.position.lng()}</span>)}</p>
                     </div>
+                    }
                 </InfoWindow>
             </Map>
         );

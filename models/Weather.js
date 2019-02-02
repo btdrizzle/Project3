@@ -13,7 +13,7 @@ var WeatherSchema = new Schema({
   // `link` is required and of type String
   date: {
     type: Date,
-    default: Date.now()
+    default: function(){return new Date()}
     },
   wind_speed: {
     type: Number
