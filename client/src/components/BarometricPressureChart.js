@@ -9,7 +9,7 @@ function BarometricPressureChart(props) {
             <BarChart width={900} height={400} data={props.data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
                 <XAxis dataKey="x"/>
-                <YAxis label={{ value: 'Barometric Pressure', angle: -90, position: 'insideLeft'}}/>
+                <YAxis tick={false} domain={['datamin', 'datamax']} label={{ value: 'Barometric Pressure', angle: -90, position: 'insideLeft'}}/>
                 <Tooltip />
                 <Legend verticalAlign="bottom" height={36}/>
                 <Bar dataKey="pressure" fill="#800080" />
