@@ -59,4 +59,8 @@ h1 {
 .state {
     width: 30% !important;
 }
+.map {
+    height: 100%;
+    width: 100%
+}
 
