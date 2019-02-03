@@ -48,6 +48,6 @@ nsp.on("connection", (socket) => {
     console.log("Charts Connection");
     socket.on("post", () => {
         console.log("Pi Posted!");
-        nsp.broadcast.emit("get");
+        socket.broadcast.emit("get");
     });
 });
