@@ -100,6 +100,7 @@ class Charts extends Component {
                 console.log(data);
             });
             socket.on("get", function() {
+                console.log("get from Pi");
                 this.stationWeather();
             })
         });
