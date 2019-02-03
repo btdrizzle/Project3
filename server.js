@@ -45,8 +45,9 @@ io.on("connection", (socket) => {
 });
 const nsp = io.of("/charts");
 nsp.on("connection", (socket) => {
-    console.log("Connection to Pi");
+    console.log("Charts Connection");
     socket.on("post", () => {
+        console.log("Pi Posted!");
         nsp.broadcast.emit("get");
     });
 });
