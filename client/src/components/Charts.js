@@ -102,7 +102,7 @@ class Charts extends Component {
         });
         socket.on("get", function() {
             console.log("get from Pi");
-            this.stationWeather();
+            stationWeather();
         })
         API.stationQuery()
         .then(data => {
