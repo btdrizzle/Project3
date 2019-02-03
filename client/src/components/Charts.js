@@ -99,11 +99,11 @@ class Charts extends Component {
             socket.on("test", function(data) {
                 console.log(data);
             });
-            socket.on("get", function() {
-                console.log("get from Pi");
-                this.stationWeather();
-            })
         });
+        socket.on("get", function() {
+            console.log("get from Pi");
+            this.stationWeather();
+        })
         API.stationQuery()
         .then(data => {
             this.setState({stations: data.data})
