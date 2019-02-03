@@ -100,9 +100,9 @@ class Charts extends Component {
                 console.log(data);
             });
         });
-        socket.on("get", function() {
+        socket.on("get", () => {
             console.log("get from Pi");
-            stationWeather();
+            this.stationWeather();
         })
         API.stationQuery()
         .then(data => {
