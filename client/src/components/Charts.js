@@ -12,7 +12,7 @@ import ComparisonChart from "./ComparisonChart";
 import io from "socket.io-client";
 import "./style.css";
 const moment = require("moment");
-let socket = io();
+let socket = io("/charts");
 
 class Charts extends Component {
     constructor(props) {

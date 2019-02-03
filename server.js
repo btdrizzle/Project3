@@ -39,11 +39,14 @@ server.listen(PORT, () => {
 io.on("connection", (socket) => {
     console.log("connection made");
     socket.emit("test", "Hello there!");
-    socket.on("post", () => {
-        socket.broadcast.emit("get");
-        console.log("Post request made");
-    });
     socket.on("message", (data) => {
         console.log(data);
+    });
+});
+const nsp = io.of("/charts");
+nsp.on("connection", (socket) => {
+    console.log("Connection to Pi");
+    socket.on("post", () => {
+        nsp.broadcast.emit("get");
     });
 });
