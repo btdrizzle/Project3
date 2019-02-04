@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const axios = require("axios");
-const moment = require("moment");
+// const moment = require("moment");
 const db = require("../models");
 require("dotenv").config();
 
-const today = function () { return moment().startOf("day"); };
+// const today = function () { return moment().startOf("day"); };
 
 router.post("/weather/:station", (req, res) => {
     const { station } = req.params;
