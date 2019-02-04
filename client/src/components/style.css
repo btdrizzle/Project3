@@ -1,5 +1,21 @@
-h1 {
+h1, h2, h3 {
     font-family: 'Audiowide', cursive;
+}
+h2, h3, p {
+    color:  #4e4e4e;
+}
+hr {
+	height: 10px;
+	background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0;
+    border: 0;
+}
+.hr {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.hrlast {
+    margin-top: 50px;
+    padding-bottom: 50px;
 }
 .header {
     font-family: 'Open Sans', sans-serif;
@@ -26,6 +42,7 @@ h1 {
     background-image: url("../otis-redding.png");
     background-color: #e9f5f9;
     min-height: calc(100vh - 100px);
+    text-align: center;
 }
 .choose {
     text-align: center;
