@@ -43,4 +43,3 @@ I utilize the Google Maps API through npm package google-maps-react to display t
 I use Moment.js for date and time calculations.
 
 I use React-Parallax for the home page.
-
