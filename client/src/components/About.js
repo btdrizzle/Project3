@@ -19,7 +19,7 @@ const insideStyles = {
 const About = () => (
     <div className="pt-4">
         <h2 className="display-4 pb-4">Weather Station Case Study</h2>
-        <Parallax bgImage={station} strength={500}>
+        <Parallax bgImage={"%PUBLIC_URL%/station.jpg" || station} strength={500}>
             <div style={{ height: 500 }}>
                 <div style={insideStyles}>
                     <h3>Purpose</h3>
@@ -35,7 +35,7 @@ const About = () => (
         <div className="hr">
             <hr />
         </div>
-        <Parallax bgImage={rasPI} strength={500}>
+        <Parallax bgImage={rasPI} blur={{ min: -5, max: 5 }} strength={-500}>
             <div style={{ height: 500 }}>
                 <div style={insideStyles}>
                     <h3>Method</h3>
