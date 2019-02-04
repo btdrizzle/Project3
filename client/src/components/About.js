@@ -19,7 +19,7 @@ const insideStyles = {
 const About = () => (
     <div className="pt-4">
         <h2 className="display-4 pb-4">Weather Station Case Study</h2>
-        <Parallax bgImage="/station.jpg" strength={500}>
+        <Parallax bgImage="https://res.cloudinary.com/hnjhyjmpn/image/upload/v1549260278/images/station.jpg" strength={500}>
             <div style={{ height: 500 }}>
                 <div style={insideStyles}>
                     <h3>Purpose</h3>
@@ -35,7 +35,7 @@ const About = () => (
         <div className="hr">
             <hr />
         </div>
-        <Parallax bgImage="/rasPI.jpg" blur={{ min: -5, max: 5 }} strength={-500}>
+        <Parallax bgImage="https://res.cloudinary.com/hnjhyjmpn/image/upload/v1549260277/images/rasPI.jpg" blur={{ min: -1, max: 3 }} strength={-500}>
             <div style={{ height: 500 }}>
                 <div style={insideStyles}>
                     <h3>Method</h3>
@@ -51,7 +51,7 @@ const About = () => (
         <div className="hr">
             <hr />
         </div>
-        <Parallax bgImage="/stationBW.png" strength={500}>
+        <Parallax bgImage="https://res.cloudinary.com/hnjhyjmpn/image/upload/v1549260280/images/stationBW.png" strength={500}>
             <div style={{ height: 500 }}>
                 <div style={insideStyles}>
                     <h3>Moving Forward</h3>
