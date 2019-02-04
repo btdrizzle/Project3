@@ -1,8 +1,5 @@
 import React from "react";
-import { Parallax, Background } from "react-parallax";
-import station from "../station.jpg";
-import stationBW from "../stationBW.png";
-import rasPI from "../rasPI.jpg";
+import { Parallax } from "react-parallax";
 import "./style.css";
 
 const insideStyles = {

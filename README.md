@@ -1,35 +1,46 @@
 # Project3 Weather Station
 
-I will construct a weather station utilizing a Raspberry Pi and various connected sensors.  This weather station will send data to a hosted website via POST request and will be stored in a database.  The user experience on the site involves viewing historical weather data from a weather API such as OpenWeather and comparing this data to the weather station.  This information is juxtaposed in graphical format for the user.
+I constructed a weather station utilizing a Raspberry Pi and various connected sensors.  This weather station sends data to a hosted website via POST request and is stored in a database.  The user experience on the site involves viewing historical weather data from a weather API Weatherbit.io and comparing this data to the weather station.  This information is juxtaposed in graphical format for the user.  Users can compare temp data for today compared to other cities.  Users can also see the latest updates from the station with wind gust, humidity, ambient temperature, ground temperature, wind direction, wind speed, and rain.
 
 ## Raspberry Pi
 
-I will construct a weather station using a Raspberry Pi.  There are various tutorials on Raspberry Pi weather station construction and I will primarily utulize the tutorial on the Raspberry Pi website:
+I used the following tutorial for making the station.  
 
 [Raspberry Pi Weather Station](https://projects.raspberrypi.org/en/projects/build-your-own-weather-station)
 
-Raspberry Pi utilizes Python and its various libraries for communication with the various sensors in this project.
+I used the following git repo for base code Python scripts for interacting with GPIO ports on Pi:
 
-The weather station will take data measurements over a pre-defined time period (say 10 minutes) and will connect to a hosted website and send data via a POST request.
+[Oracle Raspberry Pi Weather Station Software](https://github.com/RaspberryPiFoundation/weather-station)
 
-The project includes sensors for temperature, humidity, wind direction, wind speed, and a rain gauge.  While not part of the project tutorial, I would also like to add a USB GPS receiver to send coordinates when sending post requests.  
+Raspberry Pi utilizes Python and its various libraries for communication with the multiple sensors in this project.
+
+The weather station takes data measurements over a pre-defined time period of 5 minutes and pushes the data to Heroku.
+
+The project includes sensors for temperature, humidity, wind direction, wind speed, and a rain gauge.  =
 
 ## Graphical Format
 
-I will utilize a library such as Chartist.js to present the data.  Ideally, data presentation would be interactive, with users having the option to present more or less data with buttons or checkboxes.
+I utilize the Recharts javascript library to represent the data.
 
 ## Database
 
-The data from the Raspberry Pi will be stored in a SQL database and will utilize the Sequelize ORM for server-side interaction.
+Data is stored in MongoDB - mLab on Heroku.
 
 ## Security
 
-The weather station (as well as future compatibility with future stations) will use a prescribed API key in the post request to authenticate the station.  When the server receives the post request, it will search the database for the presence of that API key - if not present, the POST request will fail.
+API keys are hidden to the user.
 
 ## Framework
 
-This project will utilize either Vue or React.
+I built this project using React.
 
-## Fun Additions
+## Additional Technologies
 
-I will add my weather station to the list of amateur stations contributing to Open Weather.  
+I set up a web socket using Socket.io.  When the Raspberry Pi makes a post request, it sends a socket message to the server, which broadcasts to all listening clients on the charts page and makes them make a new GET request for data.  The data, without interaction, changes dynamically and is visible on the chart being displayed.
+
+I utilize the Google Maps API through npm package google-maps-react to display the location of the weather station on the map.
+
+I use Moment.js for date and time calculations.
+
+I use React-Parallax for the home page.
+
