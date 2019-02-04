@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const axios = require("axios");
+const moment = require("moment");
 const db = require("../models");
 require("dotenv").config();
 
+const today = function date() { moment().startOf("day"); };
 
 router.post("/weather/:station", (req, res) => {
     const { station } = req.params;
@@ -39,7 +41,7 @@ router.get("/weather/:station", (req, res) => {
     const { station } = req.params;
     db.Station.findOne({ _id: station })
         .then((data) => {
-            db.Weather.find({ station: data._id })
+            db.Weather.find({ station: data._id, date: { $gte: today.toDate() } })
                 .then((weatherData) => {
                     res.json(weatherData);
                 }).catch(err => console.log(err));
