@@ -78,7 +78,6 @@ class Charts extends Component {
                         wind_average: data.wind_average, rainfall_amt: data.rainfall_amt}
                     ))
                     this.setState({toBeCharted: superData});
-                    console.log(superData);
                 }
             }
             
@@ -88,7 +87,6 @@ class Charts extends Component {
         event.preventDefault();
         API.cityWeather({city: this.state.city, state: this.state.state, today:this.state.today, tomorrow: this.state.tomorrow})
         .then(data => {
-            console.log(data);
             this.setState({cityData: {highTemp: data.data.data[0].max_temp, lowTemp: data.data.data[0].min_temp}});
         })
     }
