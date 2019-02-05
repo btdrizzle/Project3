@@ -42,6 +42,7 @@ router.get("/weather/:station", (req, res) => {
     const { station } = req.params;
     db.Station.findOne({ _id: station })
         .then((data) => {
+            console.log(today);
             db.Weather.find({ $and: [{ station: data._id }, { date: { $gte: `${today}` } }] })
                 .then((weatherData) => {
                     res.json(weatherData);
